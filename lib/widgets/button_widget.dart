@@ -5,11 +5,17 @@ class ButtonWidget extends StatelessWidget {
   ButtonWidget({
     required this.text,
    required this.buttonColor,
+    this.updateOutput,
+    this.clearOutput,
+    this.calculateOutput
   });
 
   final Color buttonColor;
   final String text;
   final buttonDiameter = 90.0;
+  final void Function(String)? updateOutput;
+  final void Function()? clearOutput;
+  final void Function()? calculateOutput;
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +23,11 @@ class ButtonWidget extends StatelessWidget {
       height: buttonDiameter,
       width: buttonDiameter,
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: () {
+          updateOutput?.call(text);
+          clearOutput?.call();
+          calculateOutput?.call();
+        },
         child: Text(
           text,
           style: TextStyle(fontSize: 24),
